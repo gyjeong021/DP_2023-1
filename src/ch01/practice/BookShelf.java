@@ -1,7 +1,12 @@
 package ch01.practice;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 public class BookShelf implements Iterable<Book> {
-    private Book[] books; // 배열 선언
+    //private Book[] books; // 배열 선언
+    private List<Book> books = new ArrayList<Book>();
     private int last; // 마지막에 꽂힌 위치, 책 갯수
 
     public BookShelf(int maxsize) {
@@ -27,7 +32,9 @@ public class BookShelf implements Iterable<Book> {
 
     // 자신의 iterator를 반환하는 메소드
     @Override
-    public BookShelfIterator iterator() {
+    //public BookShelfIterator iterator() {
+    public Iterator<Book> iterator() {
         return new BookShelfIterator(this);
+        //return new BookShelfIteratorBackward(this);
     }
 }
