@@ -4,8 +4,7 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) {
-        FileIO f = new FileProperties();
-        try {
+        FileIO f = new FileProperties(); 
             f.readFromFile("file.txt");
             f.setValue("width", "1024");
             f.setValue("height", "512");

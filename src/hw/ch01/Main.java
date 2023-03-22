@@ -4,6 +4,8 @@ import java.util.Iterator;
 
 public class Main {
     public static void main(String[] args) {
+        System.out.println("20190990 정지영");
+
         BookShelf bookShelf = new BookShelf(6);
         bookShelf.appendBook(new Book("자료구조론", "박우창"));
         bookShelf.appendBook(new Book("소프트웨어분석설계", "최승훈"));
@@ -17,13 +19,7 @@ public class Main {
         Iterator<Book> it = bookShelf.iteratorBackward();
         while (it.hasNext()) {
             Book book = it.next();
-            System.out.println(book.getName());
-        }
-        System.out.println();
-
-        // 확장 for문을 사용하는 방법 
-        for (Book book: bookShelf) {
-            System.out.println(book.getName());
+            System.out.println(book.getName() +" "+ book.getAuthor());
         }
         System.out.println();
     }

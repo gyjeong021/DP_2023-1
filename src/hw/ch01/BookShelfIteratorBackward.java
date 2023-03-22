@@ -5,11 +5,11 @@ import java.util.NoSuchElementException;
 
 public class BookShelfIteratorBackward implements Iterator<Book> {
     private BookShelf bookShelf;
-    private int index;
+    private int index; 
 
     public BookShelfIteratorBackward (BookShelf bookShelf) {
         this.bookShelf = bookShelf;
-        this.index = bookShelf.getLength()-1;
+        this.index = bookShelf.getLength()-1; // 책꽂이의 마지막 책, 배열 0부터 시작하므로 1 빼줌
     }
 
     @Override
@@ -24,10 +24,10 @@ public class BookShelfIteratorBackward implements Iterator<Book> {
     @Override
     public Book next() {
         if (!hasNext()) {
-            throw new NoSuchElementException();
+            throw new NoSuchElementException(); //원소가 없다고 알려줌
         }
         Book book = bookShelf.getBookAt(index);
-        index--;
+        index--; 
         return book;
     }
 }
