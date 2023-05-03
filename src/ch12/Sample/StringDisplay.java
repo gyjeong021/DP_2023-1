@@ -1,5 +1,5 @@
 package ch12.Sample;
-
+// 중심을 나타내는 클래스
 public class StringDisplay extends Display {
     private String string; // 표시 문자열 
 
