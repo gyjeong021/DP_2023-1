@@ -8,6 +8,8 @@ import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JOptionPane;
+
 public class LoginFrame extends Frame implements ActionListener, Mediator {
     private ColleagueCheckbox checkGuest;
     private ColleagueCheckbox checkLogin;
@@ -46,7 +48,7 @@ public class LoginFrame extends Frame implements ActionListener, Mediator {
         add(textPass);
         add(new Label(""));
 
-        add(new Label("SSN"));
+        add(new Label("주민등록번호:"));
         add(textSSN);
         add(new Label(""));
         
@@ -83,16 +85,21 @@ public class LoginFrame extends Frame implements ActionListener, Mediator {
         // Mediator를 설정한다 
         checkGuest.setMediator(this);
         checkLogin.setMediator(this);
+        checkMember.setMediator(this);
         textUser.setMediator(this);
         textPass.setMediator(this);
+        textSSN.setMediator(this);
         buttonOk.setMediator(this);
         buttonCancel.setMediator(this);
 
         // Listener 설정
         checkGuest.addItemListener(checkGuest);
         checkLogin.addItemListener(checkLogin);
+        checkMember.addItemListener(checkMember);
+
         textUser.addTextListener(textUser);
         textPass.addTextListener(textPass);
+        textSSN.addTextListener(textSSN);
 
         buttonOk.addActionListener(this);
         buttonCancel.addActionListener(this);
@@ -105,26 +112,40 @@ public class LoginFrame extends Frame implements ActionListener, Mediator {
             // 게스트 로그인 
             textUser.setColleagueEnabled(false);
             textPass.setColleagueEnabled(false);
-            buttonOk.setColleagueEnabled(true);
-        } else { // Login 체크박스가 선택되었다면...
-            // 사용자 로그인 
+            textSSN.setColleagueEnabled(false);
+            buttonOk.setColleagueEnabled(false);
+        } else { // Login, Member 체크박스가 선택되었다면...
+            // 사용자, 멤버 로그인 
             textUser.setColleagueEnabled(true);
             userpassChanged();
         }
     }
 
-    // textUser 또는 textPass의 변경이 있다 
+    // textUser 또는 textPass 또는 textSSN의 변경이 있다 
     // 각 Colleage의 활성/비활성을 판정한다
     private void userpassChanged() {
         if (textUser.getText().length() > 0) { // 문자열이 입력되어 있으면...
             textPass.setColleagueEnabled(true);
-            if (textPass.getText().length() > 0) {
-                buttonOk.setColleagueEnabled(true);
+            if (textPass.getText().length() > 0) { // 패스워드 칸에 문자열 있으면...
+                textSSN.setColleagueEnabled(true);
+                if(textSSN.getText().length() == 13 && isNumeric(textSSN.getText())) {
+                    buttonOk.setColleagueEnabled(true);
+                }
+                else if (textSSN.getText().length() > 0 && !isNumeric(textSSN.getText())) {
+                    JOptionPane.showMessageDialog(this, "주민등록번호는 숫자로만 입력해주세요.");
+                    textSSN.setText(textSSN.getText().substring(0, textSSN.getText().length() - 1));
+                    textSSN.setCaretPosition(textSSN.getText().length());
+                    buttonOk.setColleagueEnabled(false);
+                }
+                else {
+                    buttonOk.setColleagueEnabled(false);
+                }
             } else { // 패스워드 칸에 문자열이 없으면...
-                buttonOk.setColleagueEnabled(false);
+                textSSN.setColleagueEnabled(false);
             }
         } else { // 유저네임 칸에 문자열이 없으면...
             textPass.setColleagueEnabled(false);
+            textSSN.setColleagueEnabled(false);
             buttonOk.setColleagueEnabled(false);
         }
     }
@@ -133,5 +154,15 @@ public class LoginFrame extends Frame implements ActionListener, Mediator {
     public void actionPerformed(ActionEvent e) {
         System.out.println(e.toString());
         System.exit(0);
+    }
+
+    // 주민등록번호가 숫자로만 이루어져 있는지 검사하는 isNumeric() 메소드
+    private boolean isNumeric(String str) {
+    for (char c : str.toCharArray()) {
+        if (!Character.isDigit(c)) {
+            return false;
+        }
+    }
+    return true;
     }
 }
