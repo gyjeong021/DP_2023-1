@@ -23,7 +23,7 @@ public class ColleagueTextField extends TextField implements TextListener, Colle
     public void setColleagueEnabled(boolean enabled) {
         setEnabled(enabled);
         // 활성/비활성에 맞게 배경색을 변경한다
-        setBackground(enabled ? Color.white : Color.lightGray);
+        setBackground(enabled ? Color.white : Color.lightGray); // enable 참이면 Color.white, 거짓이면 Color.lightGray
     }
 
     @Override
