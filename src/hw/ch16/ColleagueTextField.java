@@ -1,4 +1,4 @@
-package ch16.Sample;
+package hw.ch16;
 
 import java.awt.Color;
 import java.awt.TextField;
